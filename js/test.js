@@ -14,13 +14,37 @@ function shuffle(array) {
     return array;
 }
 
-let card = document.getElementsByClassName('card');
-let cards = [...card];
-cards = shuffle(cards);
-console.log(cards);
-
-
+const card = document.getElementsByClassName('card');
+const cards = [...card];
 cards.forEach(card => card.addEventListener('click', flips));
+
+
+// need to create a deck
+let deck = document.querySelector('.deck');
+
+// start a game
+function start(){
+  let shuffleCards = shuffle(cards);
+  for(let i = 0; i < shuffleCards.length; i++){
+    deck.appendChild(shuffleCards[i]);
+  }
+}
+
+window.onload = start();
+
+// restart a game
+let restart = document.querySelector('.restart');
+restart.addEventListener('click', clear);
+
+
+function clear(){
+  document.getElementsByClassName('card');
+  const oldCards = [...card];
+  oldCards.forEach(card => card.classList.value = 'card');
+  start();
+}
+
+// counter and flip cards
 
 let moveCounter = 0;
 let flippedCardsList = [];
@@ -31,7 +55,6 @@ function flips() {
   flippedCardsList.push(this);
   moveCounter++;
   document.querySelector('.moves').innerHTML = moveCounter;
-  console.log(moveCounter);
 
   if (flippedCardsList.length === 2 ) {
     let firstCard = flippedCardsList[0].childNodes[1];
@@ -40,13 +63,12 @@ function flips() {
     if (firstCard.classList.value ==
         secondCard.classList.value &&
         firstCard != secondCard) {
-        console.log('theyre the same!'); // make sure code reach here
         matched();
     } else {
-        console.log('theyre not the same!');
         notmatched();
     }
   }
+
 
 }
 
@@ -74,5 +96,5 @@ function notmatchedAnimation(){
 function notmatched(){
   flippedCardsList[0].classList.add('animated','wrong','swing');
   flippedCardsList[1].classList.add('animated','wrong','swing');
-  setTimeout(notmatchedAnimation, 1000);
+  setTimeout(notmatchedAnimation, 800);
 }
