@@ -4,9 +4,6 @@
  const card = document.getElementsByClassName('card');
  const cards = [...card];
 
- console.log(cards);
-
-
  /*
   * set up the event listener for a card. If a card is clicked:
   *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -40,31 +37,45 @@
           firstCard != secondCard) {
           matched();
       } else {
-        setTimeout(notmatched, 500); // let user see the cards, then flip them back, will beautify this later
+          notmatched();
       }
     }
 
 
   }
 
+  // Animations and mathing go here after adding animate.css
+
+  function matchedAnimation(){
+    flippedCardsList[0].classList.add('animated','rubberBand','match');
+    flippedCardsList[1].classList.add('animated','rubberBand','match');
+  }
+
   function matched(){
-    flippedCardsList[0].classList.add('match');
-    flippedCardsList[1].classList.add('match');
+    matchedAnimation();
     flippedCardsList[0].classList.remove('open','show');
     flippedCardsList[1].classList.remove('open','show');
     flippedCardsList = [];
   }
 
-  function notmatched(){
-    flippedCardsList[0].classList.remove('open','show');
-    flippedCardsList[1].classList.remove('open','show');
+
+  function notmatchedAnimation(){
+    flippedCardsList[0].classList.remove('open','show','animated','swing','wrong');
+    flippedCardsList[1].classList.remove('open','show','animated','swing','wrong');
     flippedCardsList = [];
+  }
+
+  function notmatched(){
+    flippedCardsList[0].classList.add('animated','wrong','swing');
+    flippedCardsList[1].classList.add('animated','wrong','swing');
+    setTimeout(notmatchedAnimation, 800);
   }
 
 
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
+
 function shuffle(array) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
