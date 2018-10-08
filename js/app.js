@@ -36,8 +36,9 @@ function shuffle(array) {
   cards.forEach(card => card.addEventListener('click', flips));
 
 
-  // need to create a deck
+  // need to create a deck & counter
   let deck = document.querySelector('.deck');
+  let moveCounter = 0;
 
   // start a game
   function start(){
@@ -58,13 +59,14 @@ function shuffle(array) {
     document.getElementsByClassName('card');
     const oldCards = [...card];
     oldCards.forEach(card => card.classList.value = 'card');
+    let moveCounter = 0;
+    document.querySelector('.moves').innerHTML = moveCounter;
     start();
     console.log('reshuffle success!');
   }
 
-  // counter and flip cards
+  // flip cards
 
-  let moveCounter = 0;
   let flippedCardsList = [];
 
   function flips() {
@@ -82,7 +84,9 @@ function shuffle(array) {
           secondCard.classList.value &&
           firstCard != secondCard) {
           matched();
-      } else {
+      } else if (firstCard == secondCard) {
+          sameCard();
+      }else {
           notmatched();
       }
     }
@@ -115,4 +119,10 @@ function shuffle(array) {
     flippedCardsList[0].classList.add('animated','wrong','swing');
     flippedCardsList[1].classList.add('animated','wrong','swing');
     setTimeout(notmatchedAnimation, 800);
+  }
+
+  function sameCard() {
+    flippedCardsList[0].classList.remove('open','show');
+    flippedCardsList[1].classList.remove('open','show');
+    flippedCardsList = [];
   }
