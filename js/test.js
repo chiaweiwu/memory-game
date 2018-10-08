@@ -6,23 +6,32 @@ console.log(cards);
 
 cards.forEach(card => card.addEventListener('click', flips));
 
+let moveCounter = 0;
 let flippedCardsList = [];
 
 function flips() {
   this.classList.toggle("open");
   this.classList.toggle("show");
   flippedCardsList.push(this);
+  moveCounter++;
+  document.querySelector('.moves').innerHTML = moveCounter;
+  console.log(moveCounter);
 
   if (flippedCardsList.length === 2 ) {
-    if (flippedCardsList[0].childNodes[1].classList.value ==
-        flippedCardsList[1].childNodes[1].classList.value) {
-      console.log('theyre the same!');
+    let firstCard = flippedCardsList[0].childNodes[1];
+    let secondCard = flippedCardsList[1].childNodes[1];
+
+    if (firstCard.classList.value ==
+        secondCard.classList.value &&
+        firstCard != secondCard) {
+          console.log('theyre the same!'); // make sure code reach here
       matched();
     } else {
       console.log('theyre not the same!');
       setTimeout(notmatched, 500);
     }
   }
+
 }
 
 function matched(){
