@@ -58,6 +58,7 @@ function gameEnds(){
   game.classList.add('display-none');
   endGame.classList.remove('display-none');
   document.querySelector('.end-game-moves').innerHTML = moveCounter;
+  document.querySelector('.end-game-ratings').appendChild(finalRating);
   endTimeConvert();
 }
 
@@ -93,17 +94,13 @@ function clear(){
   matchedPair = 0;
 }
 
-function replay(){
-  matchedPair = 0;
-  game.classList.remove('display-none');
-  endGame.classList.add('display-none');
-  clear();
-}
 
 // flip cards
 
 let matchedPair = 0;
 let flippedCardsList = [];
+let rating = document.querySelector('.stars');
+let finalRating;
 
 function flips() {
   this.classList.toggle("open");
@@ -133,6 +130,18 @@ function flips() {
     }
   }
 
+
+  /* star rating goes here */
+
+  if (moveCounter > 40 && moveCounter < 60) {
+    rating.children[2].firstElementChild.classList.replace('fa-star','fa-star-o');
+    finalRating = rating;
+  } else if (moveCounter > 60) {
+    rating.children[1].firstElementChild.classList.replace('fa-star','fa-star-o');
+    finalRating = rating;
+  } else if (moveCounter < 40) {
+    finalRating = rating;
+  }
 
 }
 

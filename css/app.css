@@ -18,7 +18,7 @@ body {
 
 body {
     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
+    font-family: 'Arial', cursive;
 }
 
 .container {
@@ -96,6 +96,7 @@ h1 {
     margin-bottom: 10px;
 }
 
+.end-game-ratings .stars,
 .score-panel .stars {
     margin: 0;
     padding: 0;
@@ -103,6 +104,7 @@ h1 {
     margin: 0 5px 0 0;
 }
 
+.end-game-ratings .stars li,
 .score-panel .stars li {
     list-style: none;
     display: inline-block;
@@ -127,6 +129,12 @@ h1 {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.end-game-moves,
+.end-game-time,
+.end-game-ratings {
+  font-weight: 900;
 }
 
 .replay {

@@ -40,6 +40,7 @@ function gameEnds(){
   game.classList.add('display-none');
   endGame.classList.remove('display-none');
   document.querySelector('.end-game-moves').innerHTML = moveCounter;
+  document.querySelector('.end-game-ratings').appendChild(finalRating);
   endTimeConvert();
 }
 
@@ -75,18 +76,25 @@ function clear(){
   matchedPair = 0;
 }
 
-function replay(){
-  matchedPair = 0;
-  game.classList.remove('display-none');
-  endGame.classList.add('display-none');
-  clear();
-}
+// function replay(){
+//   matchedPair = 0;
+//   game.classList.remove('display-none');
+//   endGame.classList.add('display-none');
+//   console.log(rating);
+//   clear();
+// }
+
+// we can just reload page, so star ratings wouldn't be an issue
 
 // counter and flip cards, each flip would det. star numbers
 
 let matchedPair = 0; //if certain number of pairs reached then game ends, won't have to deal with complicated classlist stuff yay
 let moveCounter = 0;
 let flippedCardsList = [];
+let rating = document.querySelector('.stars');
+let finalRating;
+/* star rating goes here */
+
 
 function flips() {
   this.classList.toggle("open");
@@ -117,12 +125,15 @@ function flips() {
     }
 }
 
-
-
-let rating = document.querySelector('.stars');
-let star = '<li><i class="fa fa-star"></i></li>';
-
-/* star rating goes here */
+  if (moveCounter > 5 && moveCounter < 10) {
+    rating.children[2].firstElementChild.classList.replace('fa-star','fa-star-o');
+    finalRating = rating;
+  } else if (moveCounter > 10) {
+    rating.children[1].firstElementChild.classList.replace('fa-star','fa-star-o');
+    finalRating = rating;
+  } else if (moveCounter < 5) {
+    finalRating = rating;
+  }
 
 }
 
