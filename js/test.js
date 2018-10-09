@@ -1,19 +1,20 @@
 // Shuffle function from http://stackoverflow.com/a/2450976
 
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length, temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+  while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+  }
 
-    return array;
+  return array;
 }
 
+const game = document.querySelector('.game');
 const card = document.getElementsByClassName('card');
 const cards = [...card];
 cards.forEach(card => card.addEventListener('click', flips));
@@ -32,10 +33,17 @@ function start(){
 
 window.onload = start();
 
+// end game
+let endGame = document.querySelector('.end-game');
+function gameEnds(){
+  game.classList.add('display-none');
+  endGame.classList.remove('display-none');
+  document.querySelector('.end-game-moves').innerHTML = moveCounter;
+}
+
 // restart a game
 let restart = document.querySelector('.restart');
 restart.addEventListener('click', clear);
-
 
 function clear(){
   document.getElementsByClassName('card');
@@ -45,6 +53,13 @@ function clear(){
   document.querySelector('.moves').innerHTML = moveCounter;
   start();
   console.log('reshuffle success!');
+}
+
+function replay(){
+  matchedPair = 0;
+  game.classList.remove('display-none');
+  endGame.classList.add('display-none');
+  clear();
 }
 
 // counter and flip cards, each flip would det. star numbers
@@ -67,30 +82,30 @@ function flips() {
 
     if (firstCard.classList.value ==
         secondCard.classList.value &&
-        firstCard != secondCard) {
-        matched();
-        matchedPair++;
-        console.log(matchedPair);
+          firstCard != secondCard) {
+          matched();
+          matchedPair++;
+          console.log(matchedPair);
 
         if (matchedPair == 2) {
-          deck.innerHTML = 'You Win!';
+          gameEnds();
         }
     } else if (firstCard == secondCard) {
-        sameCard();
+      sameCard();
     }else {
-        notmatched();
+      notmatched();
     }
-  }
+}
 
 
 
-  let rating = document.querySelector('.stars');
-  let star = '<li><i class="fa fa-star"></i></li>';
+let rating = document.querySelector('.stars');
+let star = '<li><i class="fa fa-star"></i></li>';
 
-  /* star rating goes here */
+/* star rating goes here */
 
 
-  let timer = document.querySelector('.timer');
+let timer = document.querySelector('.timer');
 
 }
 

@@ -1,23 +1,24 @@
 // Shuffle function from http://stackoverflow.com/a/2450976
 
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length, temporaryValue, randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+  while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+  }
 
-    return array;
+  return array;
 }
 
 
 /*
  * Create a list that holds all of your cards
  */
+ const game = document.querySelector('.game');
  const card = document.getElementsByClassName('card');
  const cards = [...card];
 
@@ -33,103 +34,119 @@ function shuffle(array) {
   */
 
 
-  cards.forEach(card => card.addEventListener('click', flips));
+cards.forEach(card => card.addEventListener('click', flips));
 
 
-  // need to create a deck & counter
-  let deck = document.querySelector('.deck');
-  let moveCounter = 0;
+// need to create a deck & counter
+let deck = document.querySelector('.deck');
+let moveCounter = 0;
 
-  // start a game
-  function start(){
-    let shuffleCards = shuffle(cards);
-    for(let i = 0; i < shuffleCards.length; i++){
-      deck.appendChild(shuffleCards[i]);
+// start a game
+function start(){
+  let shuffleCards = shuffle(cards);
+  for(let i = 0; i < shuffleCards.length; i++){
+    deck.appendChild(shuffleCards[i]);
+  }
+}
+
+window.onload = start();
+
+// end game
+let endGame = document.querySelector('.end-game');
+function gameEnds(){
+  game.classList.add('display-none');
+  endGame.classList.remove('display-none');
+  document.querySelector('.end-game-moves').innerHTML = moveCounter;
+}
+
+
+// restart a game
+let restart = document.querySelector('.restart');
+restart.addEventListener('click', clear);
+
+
+function clear(){
+  document.getElementsByClassName('card');
+  const oldCards = [...card];
+  oldCards.forEach(card => card.classList.value = 'card');
+  moveCounter = 0;
+  document.querySelector('.moves').innerHTML = moveCounter;
+  start();
+  console.log('reshuffle success!');
+}
+
+function replay(){
+  matchedPair = 0;
+  game.classList.remove('display-none');
+  endGame.classList.add('display-none');
+  clear();
+}
+
+// flip cards
+
+let matchedPair = 0;
+let flippedCardsList = [];
+
+function flips() {
+  this.classList.toggle("open");
+  this.classList.toggle("show");
+  flippedCardsList.push(this);
+
+  moveCounter++;
+  document.querySelector('.moves').innerHTML = moveCounter;
+
+  if (flippedCardsList.length === 2 ) {
+    let firstCard = flippedCardsList[0].childNodes[1];
+    let secondCard = flippedCardsList[1].childNodes[1];
+
+    if (firstCard.classList.value ==
+        secondCard.classList.value &&
+        firstCard != secondCard) {
+        matched();
+        matchedPair++;
+
+        if (matchedPair == 8) {
+          gameEnds();
+        }
+    } else if (firstCard == secondCard) {
+        sameCard();
+    }else {
+        notmatched();
     }
   }
 
-  window.onload = start();
 
-  // restart a game
-  let restart = document.querySelector('.restart');
-  restart.addEventListener('click', clear);
+}
 
+// Animations and mathing go here after adding animate.css
 
-  function clear(){
-    document.getElementsByClassName('card');
-    const oldCards = [...card];
-    oldCards.forEach(card => card.classList.value = 'card');
-    moveCounter = 0;
-    document.querySelector('.moves').innerHTML = moveCounter;
-    start();
-    console.log('reshuffle success!');
-  }
+function matchedAnimation(){
+  flippedCardsList[0].classList.add('animated','rubberBand','match');
+  flippedCardsList[1].classList.add('animated','rubberBand','match');
+}
 
-  // flip cards
-
-  let matchedPair = 0;
-  let flippedCardsList = [];
-
-  function flips() {
-    this.classList.toggle("open");
-    this.classList.toggle("show");
-    flippedCardsList.push(this);
-
-    moveCounter++;
-    document.querySelector('.moves').innerHTML = moveCounter;
-
-    if (flippedCardsList.length === 2 ) {
-      let firstCard = flippedCardsList[0].childNodes[1];
-      let secondCard = flippedCardsList[1].childNodes[1];
-
-      if (firstCard.classList.value ==
-          secondCard.classList.value &&
-          firstCard != secondCard) {
-          matched();
-          matchedPair++;
-          
-          if (matchedPair == 8) {
-            deck.innerHTML = 'You Win!';
-          }
-      } else if (firstCard == secondCard) {
-          sameCard();
-      }else {
-          notmatched();
-      }
-    }
+function matched(){
+  matchedAnimation();
+  flippedCardsList[0].classList.remove('open','show');
+  flippedCardsList[1].classList.remove('open','show');
+  flippedCardsList = [];
+}
 
 
-  }
+function notmatchedAnimation(){
+  flippedCardsList[0].classList.remove('open','show','animated','swing','wrong');
+  flippedCardsList[1].classList.remove('open','show','animated','swing','wrong');
+  flippedCardsList = [];
+}
 
-  // Animations and mathing go here after adding animate.css
+function notmatched(){
+  flippedCardsList[0].classList.add('animated','wrong','swing');
+  flippedCardsList[1].classList.add('animated','wrong','swing');
+  setTimeout(notmatchedAnimation, 800);
+}
 
-  function matchedAnimation(){
-    flippedCardsList[0].classList.add('animated','rubberBand','match');
-    flippedCardsList[1].classList.add('animated','rubberBand','match');
-  }
-
-  function matched(){
-    matchedAnimation();
-    flippedCardsList[0].classList.remove('open','show');
-    flippedCardsList[1].classList.remove('open','show');
-    flippedCardsList = [];
-  }
-
-
-  function notmatchedAnimation(){
-    flippedCardsList[0].classList.remove('open','show','animated','swing','wrong');
-    flippedCardsList[1].classList.remove('open','show','animated','swing','wrong');
-    flippedCardsList = [];
-  }
-
-  function notmatched(){
-    flippedCardsList[0].classList.add('animated','wrong','swing');
-    flippedCardsList[1].classList.add('animated','wrong','swing');
-    setTimeout(notmatchedAnimation, 800);
-  }
-
-  function sameCard() {
-    flippedCardsList[0].classList.remove('open','show');
-    flippedCardsList[1].classList.remove('open','show');
-    flippedCardsList = [];
-  }
+function sameCard() {
+  flippedCardsList[0].classList.remove('open','show');
+  flippedCardsList[1].classList.remove('open','show');
+  flippedCardsList = [];
+}
