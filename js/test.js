@@ -24,6 +24,7 @@ cards.forEach(card => card.addEventListener('click', flips));
 let deck = document.querySelector('.deck');
 
 // start a game
+let startTime = new Date();
 function start(){
   let shuffleCards = shuffle(cards);
   for(let i = 0; i < shuffleCards.length; i++){
@@ -39,7 +40,24 @@ function gameEnds(){
   game.classList.add('display-none');
   endGame.classList.remove('display-none');
   document.querySelector('.end-game-moves').innerHTML = moveCounter;
+  endTimeConvert();
 }
+
+function endTimeConvert(){
+  let endTime = new Date();
+  let finalTime = (endTime - startTime);
+  (finalTime /= 1000);
+  let sec = Math.round(finalTime);
+  if (sec > 60) {
+    let min = sec / 60;
+    min = Math.round(min);
+    let newSec = sec % 60;
+    document.querySelector('.end-game-time').innerHTML = min + ' minutes ' + newSec + ' seconds';
+  } else {
+    document.querySelector('.end-game-time').innerHTML = sec + ' seconds';
+  }
+}
+
 
 // restart a game
 let restart = document.querySelector('.restart');
@@ -53,6 +71,8 @@ function clear(){
   document.querySelector('.moves').innerHTML = moveCounter;
   start();
   console.log('reshuffle success!');
+  startTime = new Date();
+  matchedPair = 0;
 }
 
 function replay(){
@@ -103,9 +123,6 @@ let rating = document.querySelector('.stars');
 let star = '<li><i class="fa fa-star"></i></li>';
 
 /* star rating goes here */
-
-
-let timer = document.querySelector('.timer');
 
 }
 
