@@ -41,11 +41,15 @@ function clear(){
   document.getElementsByClassName('card');
   const oldCards = [...card];
   oldCards.forEach(card => card.classList.value = 'card');
+  moveCounter = 0;
+  document.querySelector('.moves').innerHTML = moveCounter;
   start();
+  console.log('reshuffle success!');
 }
 
-// counter and flip cards
+// counter and flip cards, each flip would det. star numbers
 
+let matchedPair = 0; //if certain number of pairs reached then game ends, won't have to deal with complicated classlist stuff yay
 let moveCounter = 0;
 let flippedCardsList = [];
 
@@ -53,6 +57,7 @@ function flips() {
   this.classList.toggle("open");
   this.classList.toggle("show");
   flippedCardsList.push(this);
+
   moveCounter++;
   document.querySelector('.moves').innerHTML = moveCounter;
 
@@ -64,13 +69,32 @@ function flips() {
         secondCard.classList.value &&
         firstCard != secondCard) {
         matched();
-    } else {
+        matchedPair++;
+        console.log(matchedPair);
+
+        if (matchedPair == 2) {
+          deck.innerHTML = 'You Win!';
+        }
+    } else if (firstCard == secondCard) {
+        sameCard();
+    }else {
         notmatched();
     }
   }
 
 
+
+  let rating = document.querySelector('.stars');
+  let star = '<li><i class="fa fa-star"></i></li>';
+
+  /* star rating goes here */
+
+
+  let timer = document.querySelector('.timer');
+
 }
+
+
 
 // Animations and mathing go here after adding animate.css
 
@@ -97,4 +121,10 @@ function notmatched(){
   flippedCardsList[0].classList.add('animated','wrong','swing');
   flippedCardsList[1].classList.add('animated','wrong','swing');
   setTimeout(notmatchedAnimation, 800);
+}
+
+function sameCard() {
+  flippedCardsList[0].classList.remove('open','show');
+  flippedCardsList[1].classList.remove('open','show');
+  flippedCardsList = [];
 }

@@ -59,7 +59,7 @@ function shuffle(array) {
     document.getElementsByClassName('card');
     const oldCards = [...card];
     oldCards.forEach(card => card.classList.value = 'card');
-    let moveCounter = 0;
+    moveCounter = 0;
     document.querySelector('.moves').innerHTML = moveCounter;
     start();
     console.log('reshuffle success!');
@@ -67,12 +67,14 @@ function shuffle(array) {
 
   // flip cards
 
+  let matchedPair = 0;
   let flippedCardsList = [];
 
   function flips() {
     this.classList.toggle("open");
     this.classList.toggle("show");
     flippedCardsList.push(this);
+
     moveCounter++;
     document.querySelector('.moves').innerHTML = moveCounter;
 
@@ -84,6 +86,11 @@ function shuffle(array) {
           secondCard.classList.value &&
           firstCard != secondCard) {
           matched();
+          matchedPair++;
+          
+          if (matchedPair == 8) {
+            deck.innerHTML = 'You Win!';
+          }
       } else if (firstCard == secondCard) {
           sameCard();
       }else {
