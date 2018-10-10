@@ -106,9 +106,12 @@ function flips() {
   this.classList.toggle("open");
   this.classList.toggle("show");
   flippedCardsList.push(this);
-
   moveCounter++;
   document.querySelector('.moves').innerHTML = moveCounter;
+
+  if (flippedCardsList[0].classList.contains('match')) {
+    flippedCardsList = [];
+  }
 
   if (flippedCardsList.length === 2 ) {
     let firstCard = flippedCardsList[0].childNodes[1];
@@ -152,17 +155,22 @@ function matchedAnimation(){
   flippedCardsList[1].classList.add('animated','rubberBand','match');
 }
 
-function matched(){
-  matchedAnimation();
+function unflipCard(){
   flippedCardsList[0].classList.remove('open','show');
   flippedCardsList[1].classList.remove('open','show');
+}
+
+function matched(){
+  matchedAnimation();
+  unflipCard();
   flippedCardsList = [];
 }
 
 
 function notmatchedAnimation(){
-  flippedCardsList[0].classList.remove('open','show','animated','swing','wrong');
-  flippedCardsList[1].classList.remove('open','show','animated','swing','wrong');
+  unflipCard();
+  flippedCardsList[0].classList.remove('animated','swing','wrong');
+  flippedCardsList[1].classList.remove('animated','swing','wrong');
   flippedCardsList = [];
 }
 
@@ -173,7 +181,6 @@ function notmatched(){
 }
 
 function sameCard() {
-  flippedCardsList[0].classList.remove('open','show');
-  flippedCardsList[1].classList.remove('open','show');
+  unflipCard();
   flippedCardsList = [];
 }

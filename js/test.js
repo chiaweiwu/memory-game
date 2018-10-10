@@ -104,17 +104,23 @@ function flips() {
   moveCounter++;
   document.querySelector('.moves').innerHTML = moveCounter;
 
+  //this solves the bug of clicking on same pair and win.
+  
+  if (flippedCardsList[0].classList.contains('match')) {
+    flippedCardsList = [];
+  }
+
   if (flippedCardsList.length === 2 ) {
     let firstCard = flippedCardsList[0].childNodes[1];
     let secondCard = flippedCardsList[1].childNodes[1];
 
+
     if (firstCard.classList.value ==
         secondCard.classList.value &&
-          firstCard != secondCard) {
-          matched();
-          matchedPair++;
-          console.log(matchedPair);
-
+        firstCard != secondCard) {
+        matched();
+        matchedPair++;
+        console.log(matchedPair);
         if (matchedPair == 2) {
           gameEnds();
         }
@@ -146,17 +152,21 @@ function matchedAnimation(){
   flippedCardsList[1].classList.add('animated','rubberBand','match');
 }
 
-function matched(){
-  matchedAnimation();
+function unflipCard(){
   flippedCardsList[0].classList.remove('open','show');
   flippedCardsList[1].classList.remove('open','show');
+}
+
+function matched(){
+  matchedAnimation();
+  unflipCard();
   flippedCardsList = [];
 }
 
-
 function notmatchedAnimation(){
-  flippedCardsList[0].classList.remove('open','show','animated','swing','wrong');
-  flippedCardsList[1].classList.remove('open','show','animated','swing','wrong');
+  unflipCard();
+  flippedCardsList[0].classList.remove('animated','swing','wrong');
+  flippedCardsList[1].classList.remove('animated','swing','wrong');
   flippedCardsList = [];
 }
 
@@ -167,7 +177,6 @@ function notmatched(){
 }
 
 function sameCard() {
-  flippedCardsList[0].classList.remove('open','show');
-  flippedCardsList[1].classList.remove('open','show');
+  unflipCard();
   flippedCardsList = [];
 }
