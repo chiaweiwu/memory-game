@@ -117,6 +117,10 @@ function flips() {
     let firstCard = flippedCardsList[0].childNodes[1];
     let secondCard = flippedCardsList[1].childNodes[1];
 
+    if (firstCard == secondCard) {
+      sameCard();
+    }
+
     if (firstCard.classList.value ==
         secondCard.classList.value &&
         firstCard != secondCard) {
@@ -126,9 +130,7 @@ function flips() {
         if (matchedPair == 8) {
           gameEnds();
         }
-    } else if (firstCard == secondCard) {
-        sameCard();
-    }else {
+    } else {
         notmatched();
     }
   }
@@ -158,6 +160,8 @@ function matchedAnimation(){
 function unflipCard(){
   flippedCardsList[0].classList.remove('open','show');
   flippedCardsList[1].classList.remove('open','show');
+  flippedCardsList[0].setAttribute('disable',true);
+  flippedCardsList[1].setAttribute('disable',true);
 }
 
 function matched(){
@@ -175,8 +179,8 @@ function notmatchedAnimation(){
 }
 
 function notmatched(){
-  flippedCardsList[0].classList.add('animated','wrong','swing');
-  flippedCardsList[1].classList.add('animated','wrong','swing');
+  flippedCardsList[0].classList.add('wrong','animated','swing');
+  flippedCardsList[1].classList.add('wrong','animated','swing');
   setTimeout(notmatchedAnimation, 800);
 }
 

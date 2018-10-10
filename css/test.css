@@ -38,8 +38,7 @@ h1 {
  */
 
 .deck {
-    width: 660px;
-    min-height: 680px;
+    width: 100%;
     background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
     padding: 32px;
     border-radius: 10px;
@@ -92,7 +91,8 @@ h1 {
 .score-panel {
     text-align: left;
     width: 345px;
-    margin-bottom: 10px;
+    margin: 0 auto;
+    padding: .25em .5em;
 }
 
 .end-game-ratings .stars,
@@ -117,7 +117,7 @@ h1 {
 /* end game stylings */
 
 .end-game {
-  width: 660px;
+  width: 100%;
   min-height: 680px;
   margin: 0 auto;
   padding: 32px;
@@ -151,4 +151,44 @@ h1 {
 
 .display-none {
   display: none;
+}
+
+/* media queries */
+
+@media screen and (min-width: 320px) {
+  .deck {
+    width: 100%;
+    min-height: 800px;
+  }
+
+  .deck .card {
+    margin-top: 10px;
+  }
+
+  .end-game {
+    font-size: 1em;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .deck {
+    margin: 0 auto;
+    width: 680px;
+    min-height: 680px;
+  }
+
+  .end-game{
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .deck {
+    width: 680px;
+    min-height: 680px;
+  }
+
+  .score-panel {
+      padding: .25em .5em;
+  }
 }
