@@ -11,6 +11,17 @@
   <link rel="stylesheet" href="css/animate.css">
 </head>
 <body>
+<div class="modal display-none">
+  <div class="content">
+    <div class="end-game">
+      <span>Close <i class="fa fa-close"></i></span>
+      <h1 class="animated tada">You win!</h1>
+      <p>You've completed the game with <span class="end-game-moves"></span> moves</p>
+      <p>In a time of <span class="end-game-time"></span> with a rating of <span class="end-game-ratings"></span>.</p>
+      <p><button class="replay" onclick="location.reload()">Replay?</button></p>
+    </div>
+  </div>
+</div>
 <div class="game">
   <div class="score-panel">
     <ul class="stars">
@@ -37,12 +48,6 @@
         <i class="fa fa-paper-plane-o"></i>
     </li>
   </ul>
-</div>
-<div class="end-game display-none">
-  <h1 class="animated tada">You win!</h1>
-  <p>You've completed the game with <span class="end-game-moves"></span> moves</p>
-  <p>In a time of <span class="end-game-time"></span> with a rating of <span class="end-game-ratings"></span>.</p>
-  <p><button class="replay" onclick="location.reload()">Replay?</button></p>
 </div>
   <script src="js/test.js"></script>
 </body>

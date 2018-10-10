@@ -1,8 +1,7 @@
-# Memory Game Project
+# Javascript Memory Game project.
 
 ## Descriptions
 
-### Javascript Memory Game project.
 Just click on index.html and start playing.
 
 ## Development Notes

@@ -53,13 +53,26 @@ function start(){
 window.onload = start();
 
 // end game
-let endGame = document.querySelector('.end-game');
+let endGameModal = document.querySelector('.modal');
+let replay = document.querySelector('.replay');
 function gameEnds(){
+  deck.classList.add('animated','bounceOut');
+  setTimeout(endGameAnimation, 700);
+  replay.addEventListener('click', closeModal);
+}
+
+function endGameAnimation() {
+  endGameModal.classList.remove('display-none');
   game.classList.add('display-none');
-  endGame.classList.remove('display-none');
   document.querySelector('.end-game-moves').innerHTML = moveCounter;
   document.querySelector('.end-game-ratings').appendChild(finalRating);
   endTimeConvert();
+}
+
+function closeModal(){
+ endGameModal.remove();
+ game.classList.remove('display-none');
+ location.reload();
 }
 
 function endTimeConvert(){
@@ -103,6 +116,10 @@ let rating = document.querySelector('.stars');
 let finalRating;
 
 function flips() {
+  if (flippedCardsList.length === 2) {
+    return;
+  }
+
   this.classList.toggle("open");
   this.classList.toggle("show");
   flippedCardsList.push(this);

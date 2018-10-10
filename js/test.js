@@ -35,13 +35,24 @@ function start(){
 window.onload = start();
 
 // end game
-let endGame = document.querySelector('.end-game');
+let endGameModal = document.querySelector('.modal');
 function gameEnds(){
   game.classList.add('display-none');
-  endGame.classList.remove('display-none');
+  endGameModal.classList.remove('display-none');
   document.querySelector('.end-game-moves').innerHTML = moveCounter;
   document.querySelector('.end-game-ratings').appendChild(finalRating);
   endTimeConvert();
+  endModal();
+}
+
+function endModal() {
+  endGameModal.addEventListener('click', closeModal);
+}
+
+function closeModal(){
+ endGameModal.remove();
+ game.classList.remove('display-none');
+ location.reload();
 }
 
 function endTimeConvert(){
@@ -97,6 +108,11 @@ let finalRating;
 
 
 function flips() {
+  // this let's user not be able to flip card when logic is happening
+  if (flippedCardsList.length === 2) {
+    return;
+  }
+
   this.classList.toggle("open");
   this.classList.toggle("show");
   flippedCardsList.push(this);

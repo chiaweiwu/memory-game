@@ -117,8 +117,8 @@ h1 {
 /* end game stylings */
 
 .end-game {
-  width: 100%;
-  min-height: 680px;
+  width: auto;
+  min-height: auto;
   margin: 0 auto;
   padding: 32px;
   border-radius: 10px;
@@ -145,6 +145,19 @@ h1 {
   border: 0;
   box-shadow: none;
   outline: none;
+}
+
+/* modal */
+
+.modal{
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
 }
 
 /* displays */
@@ -177,9 +190,6 @@ h1 {
     min-height: 680px;
   }
 
-  .end-game{
-    justify-content: center;
-  }
 }
 
 @media screen and (min-width: 1200px) {

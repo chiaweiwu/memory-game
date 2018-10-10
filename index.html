@@ -12,7 +12,14 @@
     <link rel="stylesheet" href="css/animate.css">
 </head>
 <body>
-
+    <div class="modal display-none">
+        <div class="end-game">
+          <h1 class="animated tada">You win!</h1>
+          <p>You've completed the game with <span class="end-game-moves"></span> moves</p>
+          <p>In a time of <span class="end-game-time"></span> with a rating of <span class="end-game-ratings"></span>.</p>
+          <p><button class="replay" onclick="location.reload()">Replay?</button></p>
+        </div>
+    </div>
     <div class="container game">
         <header>
             <h1>Matching Game</h1>
